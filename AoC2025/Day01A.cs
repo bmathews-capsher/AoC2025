@@ -1,4 +1,4 @@
-namespace AOC2024
+namespace AOC2025
 {
         public class Day01A
         {

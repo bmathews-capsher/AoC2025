@@ -15,7 +15,7 @@ namespace AOC2025
 
                         Assembly assembly = Assembly.GetExecutingAssembly();
                         string part = firstPart ? "A" : "B";
-                        string typeName = "AOC2024.Day" + day + part;
+                        string typeName = "AOC2025.Day" + day + part;
                         object dayInstance = assembly.CreateInstance(typeName);
 
 

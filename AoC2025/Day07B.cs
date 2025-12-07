@@ -2,7 +2,6 @@ namespace AOC2025
 {
         public class Day07B
         {
-                //5234569335
                 public void Solve(List<string> data)
                 {
                         long[] beams = new long[data[0].Length];

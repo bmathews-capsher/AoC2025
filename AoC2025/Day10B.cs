@@ -44,30 +44,6 @@ namespace AOC2025
                                 vars[var] = 0;
                         }
 
-                        public void Add(Expression e)
-                        {
-                                for (int v = 0; v < vars.Length; v++)
-                                {
-                                        vars[v] += e.vars[v];
-                                }
-                        }
-
-                        public void Subtract(Expression e)
-                        {
-                                for (int v = 0; v < vars.Length; v++)
-                                {
-                                        vars[v] -= e.vars[v];
-                                }
-                        }
-
-                        public void Multiply(double val)
-                        {
-                                for (int v = 0; v < vars.Length; v++)
-                                {
-                                        vars[v] *= val;
-                                }
-                        }
-
                         public void Divide(double val)
                         {
                                 for (int v = 0; v < vars.Length; v++)
@@ -82,17 +58,6 @@ namespace AOC2025
                                 for (int i = 1; i < vars.Length; i++)
                                 {
                                         sum += vals[i] * vars[i];
-                                }
-
-                                return sum;
-                        }
-
-                        public double Evaluate(Dictionary<int, double> values)
-                        {
-                                double sum = vars[0];
-                                foreach (KeyValuePair<int, double> value in values)
-                                {
-                                        sum += value.Value * vars[value.Key];
                                 }
 
                                 return sum;
@@ -165,13 +130,6 @@ namespace AOC2025
                                 right = new Expression(size);
                         }
 
-                        public Equation(Expression ex)
-                        {
-                                this.size = ex.vars.Length;
-                                left = new Expression(size);
-                                right = ex.Copy();
-                        }
-
                         public void SolveFor(int var)
                         {
                                 //solving for 0 means moving everything to the right
@@ -198,22 +156,6 @@ namespace AOC2025
                                 left.Divide(left.vars[var]);
                         }
 
-                        public int Solve()
-                        {
-                                if (CountVars() != 1) return -1;
-
-                                MoveRight(0); //move the constant to the right side
-                                for (int i = 1; i < size; i++)
-                                {
-                                        if (right.ContainsVar(i))
-                                        {
-                                                MoveLeft(i);
-                                                return i;
-                                        }
-                                }
-
-                                return -2;
-                        }
                         public void Substitute(int var, Expression e)
                         {
                                 left.Substitute(var, e);
@@ -240,12 +182,6 @@ namespace AOC2025
                         public int CountVars()
                         {
                                 return left.CountVars() + right.CountVars();
-                        }
-
-                        public void Substitute(int var, double val)
-                        {
-                                left.Substitute(var, val);
-                                right.Substitute(var, val);
                         }
 
                         public Equation Copy()
@@ -339,8 +275,6 @@ namespace AOC2025
                         {
                                 double answer = SumSystem(solvedSystem.result);
 
-                                if (!CheckValid(eqs, ConvertToVars(solvedSystem.result))) Console.WriteLine("ERROR!!!");
-
                                 Console.Write("\t: 0\t- " + answer);
                                 Console.WriteLine("\t- " + (int)(answer + 0.5));
                                 return (int)(answer + 0.5);
@@ -378,6 +312,7 @@ namespace AOC2025
 
                         return (int)(result + 0.5);
                 }
+
                 private List<Equation> GenerateEquations(List<List<int>> buttons, int[] voltages)
                 {
                         List<Equation> result = new();

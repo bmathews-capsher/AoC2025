@@ -4,7 +4,7 @@
     {
         public static void Main(string[] args)
         {
-            Runner.Run("11", false, "B");
+            Runner.Run("12", true, "B");
         }
     }
 }
